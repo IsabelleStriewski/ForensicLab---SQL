@@ -8,27 +8,47 @@ Dieses Projekt dokumentiert meine Herangehensweise, **SQL-Abfragen**, die spezie
  
 ### 1. Detektion von Verschleierungstaktiken (Smurfing)
 Im Bereich eDiscovery ist das Erkennen von bewussten Grenzwert-Unterschreitungen essenziell, um Geldwäsche-Versuche aufzudecken.
-* **Methodik:** Identifizierung von Transaktionsketten, die systematisch knapp unter regulatorischen Meldegrenzen (z. B. 10.000 €) bleiben.
-* **Technik:** Gezielte Filterung von Beträgen zwischen 9.000 € und 9.999 €, die gehäuft bei demselben Nutzer auftreten.
-* **Fokus:** Aufdeckung von Mustern statt Einzelereignissen.
+* **Methodik:** Identifizierung von Transaktionsketten, die systematisch knapp unter regulatorischen Meldegrenzen (z. B. 10.000 €) bleiben
+* **Technik:** Gezielte Filterung von Beträgen zwischen 9.000 € und 9.999 €, die gehäuft bei demselben Nutzer auftreten
+* **Fokus:** Aufdeckung von Mustern statt Einzelereignissen
+
+
+​![Ergebnis Smurfing Analyse](https://github.com/IsabelleStriewski/ForensicLab-SQL/blob/main/images/Smurfing_1.%20Abfrage.png)
+ 
+
  
 ### 2. Identifizierung technischer Manipulationsversuche (Security Audit)
 Systemprotokolle liefern die entscheidenden Spuren für unbefugte Zugriffe und Brute-Force-Angriffe.
-* **Methodik:** Aggregation von fehlgeschlagenen Authentifizierungsereignissen zur Identifizierung von Angriffsmustern.
-* **Technik:** Gruppierung von IP-Adressen mit einer kritischen Anzahl an „FAILED“-Status innerhalb kurzer Zeitintervalle.
-* **Fokus:** Unterscheidung zwischen menschlichem Fehlverhalten und automatisierten Angriffen.
+* **Methodik:** Aggregation von fehlgeschlagenen Authentifizierungsereignissen zur Identifizierung von Angriffsmustern
+* **Technik:** Gruppierung von IP-Adressen mit einer kritischen Anzahl an „FAILED“-Status innerhalb kurzer Zeitintervalle
+* **Fokus:** Unterscheidung zwischen menschlichem Fehlverhalten und automatisierten Angriffen
+
+
+​![Ergebnis Brutforce Analyse](https://github.com/IsabelleStriewski/ForensicLab-SQL/blob/main/images/Brutforce_2.%20Abfrage.png)
+ 
+
  
 ### 3. Analyse zeitlicher Verhaltensanomalien
 In der Forensik ist der Faktor Zeit eines der wichtigsten Beweismittel, um unbefugte Aktivitäten einzugrenzen.
-* **Methodik:** Untersuchung von Zugriffen, die signifikant vom normalen Nutzerverhalten abweichen.
-* **Technik:** Filterung von Transaktionen oder Logins in kritischen Zeitfenstern (z. B. zwischen 01:00 und 04:00 Uhr morgens).
-* **Fokus:** Nutzung von Zeitstempeln zur Rekonstruktion verdächtiger Ereignisketten.
+* **Methodik:** Untersuchung von Zugriffen, die signifikant vom normalen Nutzerverhalten abweichen
+* **Technik:** Filterung von Transaktionen oder Logins in kritischen Zeitfenstern (z. B. zwischen 01:00 und 04:00 Uhr morgens)
+* **Fokus:** Nutzung von Zeitstempeln zur Rekonstruktion verdächtiger Ereignisketten
+
+
+​![Ergebnis Anomaly Analyse](https://github.com/IsabelleStriewski/ForensicLab-SQL/blob/main/images/Anomaly_3.%20Abfrage.png)
+
+
  
 ### 4. Erkennung von Schatten-Accounts (Shared Device Fraud)
 Angreifer nutzen oft dieselbe Infrastruktur für verschiedene Identitäten, um Entdeckungsmechanismen zu umgehen.
-* **Methodik:** Suche nach IP-Adressen oder Geräte-IDs, über die auf eine ungewöhnlich hohe Anzahl verschiedener Konten zugegriffen wird.
-* **Technik:** Einsatz von `COUNT(DISTINCT user_id)`, um Mehrfachnutzungen derselben Quelle zu isolieren.
-* **Fokus:** Identifizierung von Account-Sharing und Identitätsmissbrauch.
+* **Methodik:** Suche nach IP-Adressen oder Geräte-IDs, über die auf eine ungewöhnlich hohe Anzahl verschiedener Konten zugegriffen wird
+* **Technik:** Einsatz von `COUNT(DISTINCT user_id)`, um Mehrfachnutzungen derselben Quelle zu isolieren
+* **Fokus:** Identifizierung von Account-Sharing und Identitätsmissbrauch
+
+
+​![Ergebnis SharedDevice Analyse](https://github.com/IsabelleStriewski/ForensicLab-SQL/blob/main/images/Shared_device_4.%20Abfrage.png)
+
+
  
 ---
  
